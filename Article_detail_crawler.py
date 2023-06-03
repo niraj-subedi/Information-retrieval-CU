@@ -11,6 +11,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+import schedule
 
 # Delete files if present
 try:
@@ -95,7 +96,6 @@ def initCrawlerScraper(seed, page_limit):
                                 rows = bs.findAll(
                                     "div", {"class": "result-container"})
 
-
                                 for row in rows:
                                     data: Dict[str, Any] = {}
                                     h3_element = row.h3
@@ -126,7 +126,20 @@ def initCrawlerScraper(seed, page_limit):
         print("Dumped data is:")
 
 
-seed_link = 'https://pureportal.coventry.ac.uk/en/publications/'
-page_limit = 10
+def crawl_and_scrape():
+    seed_link = 'https://pureportal.coventry.ac.uk/en/publications/'
+    page_limit = 10
 
-initCrawlerScraper(seed_link, page_limit)
+    initCrawlerScraper(seed_link, page_limit)
+
+
+# Schedule the crawl_and_scrape function to run every week
+schedule.every(7).days.do(crawl_and_scrape)
+
+# Run the initial crawl and scrape
+crawl_and_scrape()
+
+# Keep the program running and execute scheduled tasks
+while True:
+    schedule.run_pending()
+    time.sleep(1)
