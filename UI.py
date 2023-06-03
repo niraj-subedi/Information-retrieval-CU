@@ -45,10 +45,10 @@ def pub_qp_data():
         pointer = []
         for token in inputText:
             if len(inputText) < 2:
-                messagebox.showinfo(title="Hello There!!!", message="Please enter at least 2 words..")
+                messagebox.showinfo(title="Attention!!!", message="Try with more character")
                 break
             if len(token) <= 3:
-                messagebox.showinfo("Error!!!", "Please enter more than 4 characters.")
+                messagebox.showinfo("Error!!!", "Try again with more characters.")
                 break
             stem_temp = ""
             stem_word_file = []
@@ -119,7 +119,7 @@ def pub_qp_data():
         aa += 1
 
     if aa == 0:
-        messagebox.showinfo("Error!!!", "No results found. Please try again.")
+        messagebox.showinfo("Error!!!", "Please try again with suitable keywords.")
 
 # Function to handle hyperlink redirection
 def browse_url(event):
